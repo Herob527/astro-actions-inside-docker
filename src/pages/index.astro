@@ -1,5 +1,8 @@
 ---
+import { actions } from "astro:actions"
 
+
+const result = await Astro.callAction(actions.getGreeting, { name: "Astro" })
 ---
 
 <html lang="en">
@@ -12,5 +15,6 @@
 	</head>
 	<body>
 		<h1>Astro</h1>
+    <p>{result.data}</p>
 	</body>
 </html>
