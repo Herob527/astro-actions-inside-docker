@@ -1,0 +1,39 @@
+services:
+  astro:
+    ports:
+      - 4321:4321
+    build:
+      context: .
+      target: dev
+    volumes:
+      - type: bind
+        source: ./.astro
+        target: /app/.astro
+        bind:
+          # Docker creates missing directories as root, which causes permission issues
+          #
+          # Create the directory yourself first via
+          # mkdir -p .astro
+          #
+          # Or just run `[runner] run dev` in project on first run (runner like bun or npm)
+          create_host_path: false
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+    develop:
+      watch:
+        - action: sync+restart
+          path: ./.env
+          target: /app/.env
+        - action: sync+restart
+          path: ./astro.config.mjs
+          target: /app/astro.config.mjs
+        - action: rebuild
+          path: ./package.json
+          target: /app/package.json
+        - action: sync
+          path: ./src
+          target: /app/src
+        - action: sync
+          path: ./public
+          target: /app/public
