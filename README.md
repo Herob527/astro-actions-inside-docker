@@ -15,3 +15,5 @@ it doesn't work exactly, when using docker since it has own file structure.
 - Modify action
 - Check .astro/actions.d.ts
 - There will be path to actions in Docker container that I cannot utilise
+
+[Link to issue](https://github.com/withastro/astro/issues/14453)
